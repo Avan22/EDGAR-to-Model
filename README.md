@@ -8,6 +8,15 @@ Production-grade starter that:
 - generates an analyst-pack PDF (overview, KPIs, comps, valuation + sensitivity heatmaps)
 - exposes a CLI (single command to build an analyst pack per ticker)
 
+## Why this matters (IB / deal teams)
+
+- **Comps in minutes, not hours:** one command generates a clean Trading Comps table (Price / EV / TTM Revenue / TTM EBITDA / EV/Rev / EV/EBITDA) — eliminates manual copy-paste and definition drift.
+- **Defensible data lineage:** fundamentals come from **SEC EDGAR XBRL Company Facts** → mapped into standardized financial lines via explicit, versioned config (so every number is traceable and reviewable).
+- **Model-ready outputs:** produces **PDF pack + Excel model + JSON** so you can drop into an IC memo / pitch support workflow, or pipe into a dashboard / valuation engine.
+- **Repeatable refresh:** rerun after a new filing or price move and regenerate the exact same structure — consistent formatting, consistent logic, consistent outputs.
+- **Auditability by design:** reproducible pipeline + cached database + config-driven mapping makes it easy to validate, explain, and update assumptions under time pressure.
+- **Engineering discipline:** CLI-first workflow, tests, dockerized services, and SEC fair-access controls (rate-limiting + user-agent) so it behaves like production tooling—not a notebook.
+
 This repo is designed to be **correct-by-default** with SEC fair-access compliance and explicit, testable configs.
 
 ---
