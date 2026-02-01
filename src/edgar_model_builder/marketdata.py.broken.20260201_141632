@@ -1,0 +1,78 @@
+from dataclasses import dataclass
+import os
+
+@dataclass(frozen=True)
+class Quote:
+    price: float | None
+    market_cap: float | None
+    currency: str | None
+
+class MarketDataProvider:
+    def quote(self, ticker: str) -> Quote:
+        raise NotImplementedError
+
+class NullProvider(MarketDataProvider):
+    def quote(self, ticker: str) -> Quote:
+        return Quote(price=None, market_cap=None, currency=None)
+
+class YFinanceProvider(MarketDataProvider):
+    def quote(self, ticker: str) -> Quote:
+        # Hard-disable switch (for blocked networks)
+        if os.getenv("EDGAR_DISABLE_YFINANCE", "0") == "1":
+            return Quote(price=None, market_cap=None, currency=None)
+
+        try:
+            import yfinance as yf
+            t = yf.Ticker(ticker)
+
+            info = {}
+            try:
+                info = t.fast_info if hasattr(t, "fast_info") else {}
+            except Exception:
+                info = {}
+
+            price = info.get("last_price") or info.get("lastPrice") or info.get("regularMarketPrice")
+            mcap = info.get("market_cap") or info.get("marketCap")
+            currency = info.get("currency") or info.get("currencySymbol")
+
+            try:
+                price = float(price) if price is not None else None
+            except Exception:
+                price = None
+
+            try:
+                mcap = float(mcap) if mcap is not None else None
+            except Exception:
+                mcap = None
+
+            # pull fundamentals (best effort)
+        info = {}
+        try:
+            info = t.info if hasattr(t, "info") else {}
+        except Exception:
+            info = {}
+
+        ev = info.get("enterpriseValue") or mcap
+        ttm_revenue = info.get("totalRevenue")
+        ttm_ebitda = info.get("ebitda")
+
+        return Quote(
+            price=price,
+            market_cap=mcap,
+            currency=currency,
+            ev=ev,
+            ttm_revenue=ttm_revenue,
+            ttm_ebitda=ttm_ebitda,
+        )
+
+        except Exception:
+            # IMPORTANT: never crash build-pack because market data is optional
+            return Quote(price=None, market_cap=None, currency=None)
+
+def provider(name: str) -> MarketDataProvider:
+    n = (name or "").lower().strip()
+    if n in {"", "none", "null", "off", "disabled"}:
+        return NullProvider()
+    if n == "yfinance":
+        return YFinanceProvider()
+    raise ValueError(f"Unknown provider: {name}")

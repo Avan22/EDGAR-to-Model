@@ -1,0 +1,31 @@
+version: 1
+unit_priority: ["USD", "USD/shares", "shares"]
+lines:
+  revenue:
+    - { taxonomy: "us-gaap", tag: "Revenues" }
+    - { taxonomy: "us-gaap", tag: "SalesRevenueNet" }
+  cogs:
+    - { taxonomy: "us-gaap", tag: "CostOfRevenue" }
+    - { taxonomy: "us-gaap", tag: "CostOfGoodsAndServicesSold" }
+  sga:
+    - { taxonomy: "us-gaap", tag: "SellingGeneralAndAdministrativeExpense" }
+  da:
+    - { taxonomy: "us-gaap", tag: "DepreciationDepletionAndAmortization" }
+    - { taxonomy: "us-gaap", tag: "DepreciationAndAmortization" }
+  operating_income:
+    - { taxonomy: "us-gaap", tag: "OperatingIncomeLoss" }
+  net_income:
+    - { taxonomy: "us-gaap", tag: "NetIncomeLoss" }
+  interest_expense:
+    - { taxonomy: "us-gaap", tag: "InterestExpense" }
+  income_tax:
+    - { taxonomy: "us-gaap", tag: "IncomeTaxExpenseBenefit" }
+  capex:
+    - { taxonomy: "us-gaap", tag: "PaymentsToAcquirePropertyPlantAndEquipment" }
+    - { taxonomy: "us-gaap", tag: "PaymentsToAcquireProductiveAssets" }
+  cash:
+    - { taxonomy: "us-gaap", tag: "CashAndCashEquivalentsAtCarryingValue" }
+  total_debt:
+    - { taxonomy: "us-gaap", tag: "DebtCurrent" }
+    - { taxonomy: "us-gaap", tag: "LongTermDebtCurrent" }
+    - { taxonomy: "us-gaap", tag: "LongTermDebtNoncurrent" }

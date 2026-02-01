@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "edgar-model-builder"
+version = "0.1.0"
+description = "EDGAR-to-model analytics: companyfacts ingestion, normalization, comps, Excel+PDF analyst pack"
+authors = ["Avaneendra Trivedi <you@example.com>"]
+readme = "README.md"
+packages = [{include = "edgar_model_builder", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+httpx = "^0.27.2"
+pydantic = "^2.8.2"
+pydantic-settings = "^2.4.0"
+aiolimiter = "^1.1.0"
+typer = ">=0.12.3"
+rich = "^13.7.1"
+python-dateutil = "^2.9.0.post0"
+pandas = "^2.2.2"
+numpy = "^2.0.1"
+PyYAML = "^6.0.2"
+sqlalchemy = "^2.0.32"
+psycopg = "^3.2.1"
+openpyxl = "^3.1.5"
+reportlab = "^4.2.2"
+matplotlib = "^3.9.2"
+yfinance = "^0.2.41"
+tenacity = "^8.5.0"
+click = ">=8.1.7"
+
+[tool.poetry.scripts]
+edgar = "edgar_model_builder.cli:app"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
