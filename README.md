@@ -129,3 +129,17 @@ poetry run edgar build-pack --help
 
 - SEC fair access: this code enforces a request rate below the SEC threshold by default.
 - SEC endpoints used: `company_tickers.json`, `companyfacts` (XBRL JSON).
+
+## Quick demo (build 1 analyst pack)
+
+```bash
+cp .env.example .env
+# set SEC_USER_AGENT in .env (required by SEC)
+
+poetry install
+poetry run edgar db init
+poetry run edgar sec sync-tickers
+
+poetry run edgar build-pack AAPL --peers=MSFT,GOOGL,AMZN,META
+open artifacts/AAPL/pack.pdf
+open artifacts/AAPL/model.xlsx
