@@ -6,3 +6,16 @@ __pycache__/
 artifacts/
 dist/
 *.zip
+
+# local env
+.env
+
+# caches
+__pycache__/
+*.pyc
+.DS_Store
+
+# generated outputs
+artifacts/
+dist/
+analyst_packs_dist.zip
