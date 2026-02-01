@@ -19,3 +19,8 @@ __pycache__/
 artifacts/
 dist/
 analyst_packs_dist.zip
+
+# generated outputs
+artifacts/
+dist/
+analyst_packs_dist.zip
